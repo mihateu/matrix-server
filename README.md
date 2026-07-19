@@ -1,5 +1,5 @@
 # Запуск одиночного matrix-synapse сервера с поддержкой звонков на базе LiveKit + lk-jwt-service + synapse-admin.
-**Понадобится 3 домена: livekit.example.com, matrix.example.com, admin.example.com**.
+**Понадобится 3 домена: livekit.example.com, matrix.example.com, admin.example.com** (могут быть любые, главное, чтобы все вели на IP-адрес сервера).
 
 1. Необходимо открыть следующие порты
 
@@ -91,7 +91,9 @@ MATRIX_DOMAIN,
 ADMIN_DOMAIN,
 LIVEKIT_DOMAIN,
 SYNAPSE_SERVER_NAME - домены, с которыми работаем, \
-POSTGRES_PASSWORD - пароль пользователя PostgreSQL, получаем через ```openssl rand -base64 32```.
+POSTGRES_PASSWORD - пароль пользователя PostgreSQL, получаем через ```openssl rand -base64 32```, \
+LIVEKIT_KEY - ключ для LiveKit; можно сгенерировать с помощью ```openssl rand -hex 10```, \
+LIVEKIT_SECRET - секрет для LiveKit; можно сгенерировать с помощью ```openssl rand -hex 32```.
 
 6. Сгенерируем Synapse конфигурацию
 
@@ -102,8 +104,8 @@ POSTGRES_PASSWORD - пароль пользователя PostgreSQL, получ
 - password: POSTGRESQL ПАРОЛЬ ИЗ .env
 - все строки с matrix.example.com и livekit.example.com замените на свои домены
 - turn_shared_secret: "turn секрет, сгенерированный вами", сгенерировать можно с помощью ```openssl rand -base64 32```
-- livekit_key: "ключ, сгенерированный вами", сгенерировать можно с помощью ```openssl rand -hex 10```
-- livekit_secret: "секрет, сгенерированный вами", сгенерировать можно с помощью ```openssl rand -hex 32```
+- livekit_key: "ключ, сгенерированный вами", вставляем из .env
+- livekit_secret: "секрет, сгенерированный вами", вставляем из .env
 
 7. Создайте новую сеть в docker
 
@@ -113,11 +115,11 @@ docker network create matrix-network
 
 8. Создадим coturn конфигурацию
 
-Находясь в директории проекта, выполните ```cp data/coturn/turnserver.conf.example data/coturn/turnserver.conf```. Отредактируйте конфигурационный файл, вписав туда IP адрес вашего сервера (по идее тот, на который указывают домены), а также указав секрет (turn_shared_secret), сгенерированный для **homeserver.yaml**.
+Находясь в директории проекта, выполните ```cp data/coturn/turnserver.conf.example data/coturn/turnserver.conf```. Отредактируйте конфигурационный файл, изменив realm на ваш matrix домен, вписав туда IP адрес вашего сервера (по идее тот, на который указывают домены), а также указав секрет (turn_shared_secret), сгенерированный для **homeserver.yaml**.
 
 9. Создадим livekit конфигурацию
 
-Находясь в директории проекта, выполните ```cp data/livekit/livekit.yaml.example data/livekit/livekit.yaml```. Отредактируйте конфигурационный файл, вставив вместо LIVEKIT_API_KEY и LIVEKIT_API_SECRET значения, полученные для **homeserver.yaml**.
+Находясь в директории проекта, выполните ```cp data/livekit/livekit.yaml.example data/livekit/livekit.yaml```. Отредактируйте конфигурационный файл, вставив вместо LIVEKIT_API_KEY и LIVEKIT_API_SECRET значения, полученные из .env.
 
 10. Создадим nginx конфигурации
 
