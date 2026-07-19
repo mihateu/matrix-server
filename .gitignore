@@ -1,0 +1,7 @@
+.env
+data/synapse/
+data/livekit/livekit.yaml
+data/coturn/turnserver.conf
+nginx/conf.d/admin.conf
+nginx/conf.d/matrix.conf
+nginx/conf.d/livekit.conf

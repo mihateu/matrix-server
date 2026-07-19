@@ -1,0 +1,17 @@
+services:
+  coturn:
+    image: coturn/coturn:latest
+
+    restart: unless-stopped
+
+    command: -c /etc/coturn/turnserver.conf
+
+    ports:
+      - "3478:3478/tcp"
+      - "3478:3478/udp"
+
+    volumes:
+      - ${PROJECT_DIR}/data/coturn/turnserver.conf:/etc/coturn/turnserver.conf:ro
+
+    networks:
+      - matrix

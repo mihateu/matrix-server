@@ -1,0 +1,8 @@
+services:
+  synapse-admin:
+    image: awesometechnologies/synapse-admin:latest
+
+    restart: unless-stopped
+
+    networks:
+      - matrix

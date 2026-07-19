@@ -1,0 +1,14 @@
+name: matrix-server
+
+include:
+  - compose/postgres.yaml
+  - compose/synapse.yaml
+  - compose/nginx.yaml
+  - compose/synapse-admin.yaml
+  - compose/coturn.yaml
+  - compose/livekit.yaml
+  - compose/lk-jwt-service.yaml
+
+networks:
+  matrix:
+    name: matrix

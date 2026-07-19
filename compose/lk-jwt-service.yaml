@@ -1,0 +1,18 @@
+services:
+  lk-jwt-service:
+    image: ghcr.io/element-hq/lk-jwt-service:latest
+
+    restart: unless-stopped
+
+    environment:
+      LIVEKIT_URL: wss://${LIVEKIT_DOMAIN}
+
+      LIVEKIT_KEY: ${LIVEKIT_KEY}
+      LIVEKIT_SECRET: ${LIVEKIT_SECRET}
+
+      LIVEKIT_FULL_ACCESS_HOMESERVERS: ${MATRIX_DOMAIN}
+
+      USER_INFO_HOST_OVERRIDE: https://synapse:8008
+
+    networks:
+      - matrix
