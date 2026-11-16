@@ -18,6 +18,9 @@
 
 ```
 sudo apt update && sudo apt upgrade -y
+```
+
+```
 sudo apt install -y \
     ca-certificates \
     curl \
@@ -31,20 +34,30 @@ sudo apt install -y \
 
 ```
 sudo install -m 0755 -d /etc/apt/keyrings
+```
 
+```
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
 sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+```
 
+```
 sudo chmod a+r /etc/apt/keyrings/docker.gpg
+```
 
+```
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] \
   https://download.docker.com/linux/ubuntu \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
 sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+```
 
+```
 sudo apt update
+```
 
+```
 sudo apt install -y \
     docker-ce \
     docker-ce-cli \
@@ -67,7 +80,13 @@ newgrp docker
 
 ```
 docker --version
+```
+
+```
 docker compose version
+```
+
+```
 certbot --version
 ```
 
@@ -76,7 +95,13 @@ certbot --version
 
 ```
 sudo certbot certonly --standalone -d livekit.example.com
+```
+
+```
 sudo certbot certonly --standalone -d admin.example.com
+```
+
+```
 sudo certbot certonly --standalone -d matrix.example.com
 ```
 
@@ -84,6 +109,9 @@ sudo certbot certonly --standalone -d matrix.example.com
 
 ```
 cp .env.example .env
+```
+
+```
 nano .env
 ```
 
@@ -128,7 +156,13 @@ docker network create matrix-network
 
 ```
 cp nginx/conf.d/admin.conf.example nginx/conf.d/admin.conf
+```
+
+```
 cp nginx/conf.d/livekit.conf.example nginx/conf.d/livekit.conf
+```
+
+```
 cp nginx/conf.d/matrix.conf.example nginx/conf.d/matrix.conf
 ```
 
